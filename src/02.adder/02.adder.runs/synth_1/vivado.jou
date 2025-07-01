@@ -2,11 +2,11 @@
 # Vivado v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Tue Jul  1 16:34:54 2025
-# Process ID: 2476
+# Start of session at: Tue Jul  1 17:12:26 2025
+# Process ID: 16876
 # Current directory: D:/project/FPGA/src/02.adder/02.adder.runs/synth_1
-# Command line: vivado.exe -log full_adder.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source full_adder.tcl
-# Log file: D:/project/FPGA/src/02.adder/02.adder.runs/synth_1/full_adder.vds
+# Command line: vivado.exe -log full_adder_4bit.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source full_adder_4bit.tcl
+# Log file: D:/project/FPGA/src/02.adder/02.adder.runs/synth_1/full_adder_4bit.vds
 # Journal file: D:/project/FPGA/src/02.adder/02.adder.runs/synth_1\vivado.jou
 #-----------------------------------------------------------
-source full_adder.tcl -notrace
+source full_adder_4bit.tcl -notrace
