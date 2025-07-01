@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Mon Jun 30 15:57:47 2025
+# Process ID: 2888
+# Current directory: D:/project/FPGA/src/01.gate_test/01.gate_test.runs/synth_1
+# Command line: vivado.exe -log gate_test.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source gate_test.tcl
+# Log file: D:/project/FPGA/src/01.gate_test/01.gate_test.runs/synth_1/gate_test.vds
+# Journal file: D:/project/FPGA/src/01.gate_test/01.gate_test.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source gate_test.tcl -notrace
