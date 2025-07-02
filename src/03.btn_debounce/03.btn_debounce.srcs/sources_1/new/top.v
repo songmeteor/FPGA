@@ -15,12 +15,12 @@ module top(
     reg r_led_100ms_toggle = 0;
     reg r_led_toggle = 0;
 
-    // button_debounce u_button_debounce(
-    //     .i_clk(clk),
-    //     .i_reset(reset),
-    //     .i_btn(btnC),
-    //     .o_led(w_btn_debounce)
-    // );
+    button_debounce u_button_debounce(
+        .i_clk(clk),
+        .i_reset(reset),
+        .i_btn(btnC),
+        .o_led(w_btn_debounce)
+    );
 
     tick_generator u_tick_generator(
         .clk(clk),

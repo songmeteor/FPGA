@@ -21,7 +21,7 @@ module tick_generator(
                 r_tick_count <= 0;
                 tick <= 1'b1;
             end else begin
-                r_tick_count = r_tick_count + 1;
+                r_tick_count <= r_tick_count + 1;
                 tick <= 1'b0;
             end
         end

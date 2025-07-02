@@ -1,0 +1,56 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Wed Jul  2 19:14:52 2025
+# Process ID: 9716
+# Current directory: D:/sanggong/verilog/FPGA/src/03.btn_debounce
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent23464 D:\sanggong\verilog\FPGA\src\03.btn_debounce\03.btn_debounce.xpr
+# Log file: D:/sanggong/verilog/FPGA/src/03.btn_debounce/vivado.log
+# Journal file: D:/sanggong/verilog/FPGA/src/03.btn_debounce\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/sanggong/verilog/FPGA/src/03.btn_debounce/03.btn_debounce.xpr
+update_compile_order -fileset sources_1
+close_project
+open_project D:/sanggong/verilog/FPGA/src/03.btn_debounce/03.btn_debounce.xpr
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open D:/sanggong/verilog/FPGA/src/03.btn_debounce/03.btn_debounce.srcs/sim_1/new/tb_my_btn_debounce.v w ]
+add_files -fileset sim_1 D:/sanggong/verilog/FPGA/src/03.btn_debounce/03.btn_debounce.srcs/sim_1/new/tb_my_btn_debounce.v
+update_compile_order -fileset sim_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_my_btn_debounce [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_simulation
+update_compile_order -fileset sim_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_simulation
+source tb_btn_debounce.tcl
+restart
+run all
+close_sim
+launch_simulation
+source tb_btn_debounce.tcl
+restart
+run all
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_my_btn_debounce [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+close_sim
