@@ -22,7 +22,7 @@ module my_btn_debounce(
                 if(counter == 0) begin
                     clean_btn <= noise_btn;
                 end else begin
-                    counter <= counter-1;
+                    counter <= counter-1; //dfsdfsdf
                 end
             end
         end
