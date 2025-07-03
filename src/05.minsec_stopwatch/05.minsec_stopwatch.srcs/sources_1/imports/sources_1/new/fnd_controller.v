@@ -3,6 +3,7 @@
 module fnd_controller(
     input clk,
     input reset,
+    input anim_mode,
     input [13:0] input_data,
     output [7:0] seg_data,
     output [3:0] an     // ÀÚ¸´¼ö ¼±ÅÃ
@@ -13,6 +14,10 @@ module fnd_controller(
     wire [3:0] w_d10;
     wire [3:0] w_d100;
     wire [3:0] w_d1000;
+    wire [7:0] w_seg_anim;
+    wire [3:0] w_an_anim;
+    wire [7:0] w_seg_num;
+    wire [3:0] w_an_num;
 
     fnd_digit_select u_fnd_digit_select(
         .clk(clk),
@@ -34,10 +39,19 @@ module fnd_controller(
         .d10(w_d10),
         .d100(w_d100),
         .d1000(w_d1000),
-        .an(an),
-        .seg(seg_data)
+        .an(w_an_num),
+        .seg(w_seg_num)
     );
 
+    fnd_anim u_fnd_anim(
+        .clk(clk),
+        .reset(reset),
+        .seg(w_seg_anim),
+        .an(w_an_anim)
+    );
+
+    assign seg_data = anim_mode ? w_seg_anim : w_seg_num;
+    assign an = anim_mode ? w_an_anim : w_an_num;
 endmodule
 
 
@@ -125,4 +139,50 @@ module fnd_display(
             default: seg = 8'b11111111;
         endcase
     end    
+endmodule
+
+
+module fnd_anim(
+    input clk,
+    input reset,
+    output reg [7:0] seg,
+    output reg [3:0] an
+);
+    reg [3:0] anim_step = 0;
+    reg [26:0] counter = 0;  
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            anim_step <= 0;
+            counter <= 0;
+        end else begin
+            if (counter == 50_000_000 - 1) begin
+                counter <= 0;
+                anim_step <= (anim_step == 11) ? 0 : anim_step + 1;
+            end else begin
+                counter <= counter + 1;
+            end
+        end
+    end
+
+    always @(*) begin
+        seg = 8'b11111111; 
+        an = 4'b1111;      
+
+        case(anim_step)
+            0: begin an = 4'b0111; seg = 8'b11011111; end // F: f
+            1: begin an = 4'b0111; seg = 8'b11111110; end // A
+            2: begin an = 4'b1011; seg = 8'b11111110; end // A
+            3: begin an = 4'b1101; seg = 8'b11111110; end // A
+            4: begin an = 4'b1110; seg = 8'b11111110; end // A
+            5: begin an = 4'b1110; seg = 8'b11111101; end // B
+            6: begin an = 4'b1110; seg = 8'b11111011; end // C
+            7: begin an = 4'b1110; seg = 8'b11110111; end // D
+            8: begin an = 4'b1101; seg = 8'b11110111; end // D
+            9: begin an = 4'b1011; seg = 8'b11110111; end // D
+            10:begin an = 4'b0111; seg = 8'b11110111; end // D
+            11:begin an = 4'b0111; seg = 8'b11101111; end // E
+            default: begin an = 4'b1111; seg = 8'b11111111; end
+        endcase
+    end
 endmodule

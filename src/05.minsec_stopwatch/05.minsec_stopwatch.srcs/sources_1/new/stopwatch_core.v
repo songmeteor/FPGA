@@ -11,53 +11,46 @@ module stopwatch_core(
     output reg[13:0] stopwatch_count
     );
 
-    reg [19:0] counter;
-    reg [13:0] ms10_up_counter;
+    reg [19:0] counter = 0;
+    reg [6:0] ms10_counter = 0;
 
-    //stop watch up counter 
-    always @ (posedge clk, posedge reset) begin
-        if(reset || clear) begin
-            counter <= 0;
-            ms10_up_counter <= 0;
-        end else begin
-            if(counter == 20'd1_000_000) begin  //10ms
-                ms10_up_counter <= ms10_up_counter + 1;
-                counter <= 0;
-            end else begin
-                counter <= counter + 1;
-            end          
+    always @(posedge clk or posedge reset) begin
+        if (reset || clear) begin
+            counter         <= 0;
+            ms10_counter    <= 0;
+            sec_count       <= 0;
+            min_count       <= 0;
+            hour_count      <= 0;
+            stopwatch_count <= 0;
         end
-        stopwatch_count <= ms10_up_counter;
-    end
-
-    always @ (posedge clk, posedge reset) begin
-        if(reset || clear) begin
+        else if (counter < 1_000_000-1) begin
+            counter <= counter + 1;
+        end
+        else begin
             counter <= 0;
-            ms10_up_counter <= 0;
-            sec_count <=0;
-        end else if(ms10_up_counter % 100 == 0) begin
-            sec_count <= sec_count + 1;
-        end       
-    end
 
-    always @ (posedge clk, posedge reset) begin
-        if(reset || clear) begin
-            counter <= 0;
-            ms10_up_counter <= 0;
-            min_count <=0;
-        end else if(sec_count % 60 == 0) begin
-            min_count <= min_count + 1;
-        end       
-    end
+            ms10_counter <= ms10_counter + 1;
+            if (ms10_counter == 99) begin
+                ms10_counter <= 0;
+                if (sec_count < 59)
+                    sec_count <= sec_count + 1;
+                else begin
+                    sec_count <= 0;
+                    if (min_count < 59)
+                        min_count <= min_count + 1;
+                    else begin
+                        min_count  <= 0;
+                        hour_count <= hour_count + 1; 
+                    end
+                end
+            end
 
-    always @ (posedge clk, posedge reset) begin
-        if(reset || clear) begin
-            counter <= 0;
-            ms10_up_counter <= 0;
-            hour_count <=0;
-        end else if(sec_count % 60 == 0) begin
-            hour_count <= hour_count + 1;
-        end       
+            if (run_stop) begin
+                if (stopwatch_count < 5999)
+                    stopwatch_count <= stopwatch_count + 1;
+                else
+                    stopwatch_count <= 0;
+            end
+        end
     end
-
 endmodule

@@ -10,7 +10,7 @@ module my_btn_debounce(
 
     parameter DEBOUNCE_TICKS = 10; 
     reg [$clog2(DEBOUNCE_TICKS)-1:0] counter;
-    reg previous_btn_state;
+    reg [2:0] previous_btn_state;
 
     always @(posedge clk, posedge reset) begin
         if(reset) begin

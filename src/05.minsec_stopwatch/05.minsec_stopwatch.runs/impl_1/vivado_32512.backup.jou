@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Thu Jul  3 23:48:43 2025
+# Process ID: 32512
+# Current directory: D:/sanggong/verilog/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.runs/impl_1
+# Command line: vivado.exe -log my_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source my_top.tcl -notrace
+# Log file: D:/sanggong/verilog/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.runs/impl_1/my_top.vdi
+# Journal file: D:/sanggong/verilog/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source my_top.tcl -notrace
