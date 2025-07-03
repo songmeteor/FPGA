@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Thu Jul  3 16:00:20 2025
+# Process ID: 19540
+# Current directory: D:/project/FPGA/src/04.fnd_control/04.fnd_control.runs/impl_1
+# Command line: vivado.exe -log my_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source my_top.tcl -notrace
+# Log file: D:/project/FPGA/src/04.fnd_control/04.fnd_control.runs/impl_1/my_top.vdi
+# Journal file: D:/project/FPGA/src/04.fnd_control/04.fnd_control.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source my_top.tcl -notrace
