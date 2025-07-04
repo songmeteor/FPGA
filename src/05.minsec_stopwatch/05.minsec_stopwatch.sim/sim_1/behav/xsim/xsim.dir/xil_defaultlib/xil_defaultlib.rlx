@@ -1,0 +1,12 @@
+0.7
+2020.2
+Jun 10 2021
+20:04:57
+D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.sim/sim_1/behav/xsim/glbl.v,1623370582,verilog,,,,glbl,,,,,,,,
+D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sim_1/new/tb_minsec_stopwatch.v,1751595140,verilog,,,,tb_my_top,,,,,,,,
+D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/imports/sources_1/imports/new/my_btn_debounce.v,1751586628,verilog,,D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/imports/sources_1/imports/new/my_top.v,,my_btn_debounce,,,,,,,,
+D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/imports/sources_1/imports/new/my_top.v,1751592885,verilog,,D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/new/stopwatch_core.v,,my_top,,,,,,,,
+D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/imports/sources_1/imports/new/tick_generator.v,1751500382,verilog,,D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sim_1/new/tb_minsec_stopwatch.v,,tick_generator,,,,,,,,
+D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/imports/sources_1/new/btn_command_controller.v,1751588549,verilog,,D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/imports/sources_1/new/fnd_controller.v,,btn_command_controller,,,,,,,,
+D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/imports/sources_1/new/fnd_controller.v,1751587350,verilog,,D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/imports/sources_1/imports/new/my_btn_debounce.v,,bin2bcd;fnd_anim;fnd_controller;fnd_digit_select;fnd_display,,,,,,,,
+D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/new/stopwatch_core.v,1751588123,verilog,,D:/project/FPGA/src/05.minsec_stopwatch/05.minsec_stopwatch.srcs/sources_1/imports/sources_1/imports/new/tick_generator.v,,stopwatch_core,,,,,,,,

@@ -110,10 +110,10 @@ module btn_command_controller(
         end else begin
             case (r_mode)
                 IDLE: begin
-                    seg_data <= {hour_count, min_count}; 
+                    seg_data <= hour_count; 
                 end
                 MINSEC: begin
-                    seg_data <= {min_count, sec_count[5:0]}; 
+                    seg_data <= {100 * min_count + sec_count}; 
                 end
                 STOPWATCH: begin
                     seg_data <= stopwatch_count;

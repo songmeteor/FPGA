@@ -29,20 +29,21 @@ module stopwatch_core(
         else begin
             counter <= 0;
 
-            ms10_counter <= ms10_counter + 1;
             if (ms10_counter == 99) begin
                 ms10_counter <= 0;
-                if (sec_count < 59)
-                    sec_count <= sec_count + 1;
-                else begin
+                if(sec_count == 59) begin
                     sec_count <= 0;
-                    if (min_count < 59)
-                        min_count <= min_count + 1;
-                    else begin
-                        min_count  <= 0;
-                        hour_count <= hour_count + 1; 
-                    end
+                        if(min_count == 59) begin
+                            min_count <= 0;
+                        end else begin
+                            min_count <= min_count + 1;
+                        end
+                end else begin
+                    sec_count <= sec_count + 1;
                 end
+
+            end else begin
+                ms10_counter <= ms10_counter + 1;
             end
 
             if (run_stop) begin
