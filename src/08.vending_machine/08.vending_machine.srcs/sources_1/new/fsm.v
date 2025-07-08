@@ -63,7 +63,7 @@ module fsm(
                 else                                         next_state = READY;
             end    
             RUN : begin
-                if(run_sec >=30) next_state = READY; 
+                if(run_sec >=1) next_state = READY; 
                 else             next_state = RUN; 
             end
             default : next_state = IDLE;
