@@ -99,7 +99,7 @@ module fsm(
                 end
                 else if(btnD_posedge) begin
                 next_state = ZZ;    
-                r_ret = 0; r_led = {led[5:0], 1'b0};    
+                r_ret = 1; r_led = {led[5:0], 1'b0};    
                 end
                 else begin
                 next_state = ZZ;     
