@@ -1,26 +1,18 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2025/07/10 21:39:56
-// Design Name: 
-// Module Name: top_microwave
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module top_microwave(
-
+    input        clk,
+    input        reset,
+    input        btnU,
+    input        btnL,
+    input        btnC,
+    input        btnD,
+    input        door,
+    output [7:0] seg,
+    output [3:0] an,
+    output       buzzer,
+    output [1:0] in1_in2  
     );
+
+    
 endmodule
