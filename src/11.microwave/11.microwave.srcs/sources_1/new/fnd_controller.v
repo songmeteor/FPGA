@@ -31,8 +31,8 @@ module fnd_controller(
     wire [3:0] w_an_run;
 
     wire [7:0] w_seg_finish;
-    wire [3:0] w_an_finish;              
-
+    wire [3:0] w_an_finish;  
+    
     bin2bcd u_bin2bcd(
         .in_data(input_data),
         .d1(w_d1),
@@ -254,7 +254,7 @@ module fnd_run_display(
     output reg [7:0] seg     
 );
     reg [26:0]  tick_counter = 0;
-    reg [3:0]   fnd_toggle_counter = 0;
+    reg [2:0]   fnd_toggle_counter = 0;
     reg         fnd_toggle;
 
     wire tick_1s = (tick_counter == 100_000_000-1);
@@ -272,19 +272,19 @@ module fnd_run_display(
     always @(posedge clk or posedge reset) begin
         if (reset)
             fnd_toggle_counter <= 0;
-        else if(fnd_toggle_counter == 6)
-            fnd_toggle_counter <= 0;               
-        else if (tick_1s)
-            fnd_toggle_counter <= fnd_toggle_counter + 1;
+        else if (tick_1s) begin
+            if(fnd_toggle_counter == 5)
+                fnd_toggle_counter <= 0;
+            else
+                fnd_toggle_counter <= fnd_toggle_counter + 1;    
+        end
     end
     
-    always @(posedge clk or posedge reset) begin
-        if(reset)
-            fnd_toggle <= 0; 
-        else if(fnd_toggle_counter == 3)
-            fnd_toggle <= !fnd_toggle;
+    always @(*) begin
+        if (fnd_toggle_counter < 3) 
+            fnd_toggle = 1'b0; 
         else 
-            fnd_toggle <= fnd_toggle;     
+            fnd_toggle = 1'b1;
     end
 
     always @(*) begin
