@@ -20,11 +20,6 @@ module top_microwave(
     wire [13:0] w_run_time;
     wire [2:0]  w_mode;
 
-    // button_debounce u_btnU(.i_clk(clk), .i_reset(reset), .i_btn(btnU), .o_btn_clean(w_btnU));
-    // button_debounce u_btnL(.i_clk(clk), .i_reset(reset), .i_btn(btnL), .o_btn_clean(w_btnL));
-    // button_debounce u_btnC(.i_clk(clk), .i_reset(reset), .i_btn(btnC), .o_btn_clean(w_btnC));
-    // button_debounce u_btnD(.i_clk(clk), .i_reset(reset), .i_btn(btnD), .o_btn_clean(w_btnD));   
-
     debounce_pushbutton u_btnU(.clk(clk), .noise_btn(btnU), .clean_btn(w_btnU));
     debounce_pushbutton u_btnL(.clk(clk), .noise_btn(btnL), .clean_btn(w_btnL));   
     debounce_pushbutton u_btnC(.clk(clk), .noise_btn(btnC), .clean_btn(w_btnC));   
@@ -83,6 +78,7 @@ module top_microwave(
         .btnL(w_btnL),
         .btnC(w_btnC),
         .btnD(w_btnD),
+        .door(door), 
         .mode(w_mode),
         .buzzer(buzzer)
         );                              
