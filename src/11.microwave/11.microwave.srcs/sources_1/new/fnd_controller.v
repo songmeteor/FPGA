@@ -108,7 +108,11 @@ module fnd_controller(
             FINISH : begin
                 seg_data = w_seg_finish;
                 an       = w_an_finish;
-            end                                    
+            end
+            default: begin
+            seg_data = 8'b11111111; 
+            an       = 4'b1111;
+        end                                    
         endcase
     end
 endmodule
