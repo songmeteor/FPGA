@@ -56,11 +56,15 @@ module data_sender(
                 tx_start <= 1'b1;
                 _4num_cnt <= 1;
             end else if (tx_done) begin
-                if(_4num_cnt <= 3) begin
-                    tx_data  <= up_cnt[_4num_cnt];
-                    tx_start <= 1'b1;
-                    _4num_cnt <= _4num_cnt + 1;                 
-                end
+                if(_4num_cnt <= 4) begin 
+                    if (_4num_cnt < 4) begin // 1, 2, 3번째 숫자 전송
+                        tx_data  <= up_cnt[_4num_cnt];
+                    end else begin // 4번째 순서 -> 개행 문자(LF) 전송
+                        tx_data  <= 8'h0A; 
+                    end
+                    tx_start  <= 1'b1;
+                    _4num_cnt <= _4num_cnt + 1;
+                end             
             end else begin
                 tx_start <= 1'b0;
             end
