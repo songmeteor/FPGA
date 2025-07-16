@@ -3,7 +3,7 @@
 module uart_controller(
     input        clk,
     input        reset,
-    input [7:0]  send_data,
+    input [13:0] send_data,
     input        rx,
 
     output       tx,
@@ -45,4 +45,13 @@ module uart_controller(
         .tx_busy(tx_busy),
         .tx_done(tx_done)
     );
+
+    uart_rx u_uart_rx(
+        .clk(clk),
+        .reset(reset),
+        .rx(rx),
+
+        .data_out(rx_data),
+        .rx_done(rx_done)
+    );    
 endmodule

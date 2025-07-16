@@ -36,6 +36,8 @@ module top(
         .clk     (clk),
         .reset   (reset),  // btnU
         .btn     (w_btn_debounce), // btn[0]: L btn[1]:C btn[2]:R
+        .rx_data (w_rx_data),
+        .rx_done (w_rx_done),
         .sw      (sw),
         .seg_data(w_seg_data),
         .led     (led)
@@ -52,7 +54,7 @@ module top(
     uart_controller u_uart_controller(
         .clk      (clk),
         .reset    (reset),
-        .send_data(8'b00110000),  // 0x35, ascii '5'
+        .send_data(w_seg_data),  // 0x35, ascii '5'
         .rx       (RsRx),
 
         .tx     (RsTx),

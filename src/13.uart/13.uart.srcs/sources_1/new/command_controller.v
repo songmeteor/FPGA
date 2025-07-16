@@ -5,8 +5,10 @@ module command_controller(
     input reset,  // btnU
     input [2:0] btn, // btn[0]: L btn[1]:C btn[2]:R
     input [7:0] sw,
+    input [7:0] rx_data,
+    input       rx_done,
     output [13:0] seg_data,
-    output [15:0] led
+    output reg [15:0] led
     );
 
     // mode 
@@ -18,6 +20,7 @@ module command_controller(
     reg [2:0] r_mode;
     reg [19:0] counter;
     reg [13:0] ms10_counter;
+    reg [7:0] led_on;
 
     // mode check 
     always @(posedge clk, posedge reset) begin
@@ -49,6 +52,18 @@ module command_controller(
             counter <= 0;            
         end 
     end 
+
+    always @ (posedge clk, posedge reset) begin
+        if(reset) begin
+            led <= 0;
+            led_on <= 0; 
+        end else begin
+            if(rx_done) begin
+                led_on <= rx_data;        
+            end
+            led <= led_on;
+        end
+    end
 
     assign seg_data = (r_mode == UP_COUNTER) ? ms10_counter :
                       (r_mode == DOWN_COUNTER) ? ms10_counter : sw; 
