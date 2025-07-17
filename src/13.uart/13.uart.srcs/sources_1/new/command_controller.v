@@ -32,6 +32,10 @@ module command_controller(
                 r_mode <= (r_mode == SLIDE_SW_READ) ? UP_COUNTER : r_mode + 1; 
             end
             prev_btnL <= btn[0];
+
+            if(rx_done && rx_data == 8'h4D) begin  // 4D "M"
+                r_mode <= (r_mode == SLIDE_SW_READ) ? UP_COUNTER : r_mode + 1;
+            end
         end 
     end 
 
