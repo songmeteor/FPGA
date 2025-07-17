@@ -14,17 +14,17 @@ module dht11_controller(
     localparam COUNT_1MS = 100_000;
     localparam COUNT_1S  = 100_000_000;
 
-    localparam IDLE              = 4'b0000,
-               START_LOW         = 4'b0001,
-               START_HIGH        = 4'b0010,
-               RESP_LOW          = 4'b0011,
-               RESP_HIGH         = 4'b0100,
-               WAIT_BIT_LOW_START= 4'b0101,
-               DATA_WAIT_LOW_END = 4'b0110, 
-               DATA_MEASURE_HIGH = 4'b0111, 
-               DATA_PROCESS      = 4'b1000, 
-               DATA_END          = 4'b1001,
-               ERROR             = 4'b1111; 
+    localparam IDLE               = 4'b0000,
+               START_LOW          = 4'b0001,
+               START_HIGH         = 4'b0010,
+               RESP_LOW           = 4'b0011,
+               RESP_HIGH          = 4'b0100,
+               WAIT_BIT_LOW_START = 4'b0101,
+               DATA_WAIT_LOW_END  = 4'b0110, 
+               DATA_MEASURE_HIGH  = 4'b0111, 
+               DATA_PROCESS       = 4'b1000, 
+               DATA_END           = 4'b1001,
+               ERROR              = 4'b1111; 
 
     reg [3:0]  state;
     reg [23:0] timer_count;
