@@ -8,7 +8,7 @@ module btn_controller(
     input       btnL,
     input [1:0] mode,
     input [7:0] current_temperature,
-    input [7:0] pressure, 
+    input [7:0] humidity, 
 
     output reg [7:0] target_temperature,
     output           heat_cool,
@@ -50,11 +50,11 @@ module btn_controller(
     assign heat_cool = (target_temperature >= current_temperature) ? 1 : 0;
 
     always @(*) begin
-        if(current_temperature >= 24 && current_temperature <= 27 && pressure >= 40 && pressure <= 60)
+        if(current_temperature >= 24 && current_temperature <= 27 && humidity >= 40 && humidity <= 60)
         level = LEVEL0;
-        else if (current_temperature >= 22 && current_temperature <= 29 && pressure >= 30 && pressure <= 70)
+        else if (current_temperature >= 22 && current_temperature <= 29 && humidity >= 30 && humidity <= 70)
         level = LEVEL1;
-        else if (current_temperature >= 20 && current_temperature <= 31 && pressure >= 20 && pressure <= 80)
+        else if (current_temperature >= 20 && current_temperature <= 31 && humidity >= 20 && humidity <= 80)
         level = LEVEL2;
         else level = LEVEL3;                
     end

@@ -7,7 +7,7 @@ module fnd_controller(
     input [9:0] distance,
     input [7:0] target_temperature,
     input [7:0] current_temperature,  // 무조건 두자리 양수
-    input [7:0] pressure,             // 무조건 두자리 양수
+    input [7:0] humidity,             // 무조건 두자리 양수
     input [1:0] level,
     input       heat_cool,            // heat = 0, cool = 1
     input       ultrasonic_mode,
@@ -112,7 +112,7 @@ module fnd_controller(
         end else begin
             case(mode)
             IDLE :   w_input_data = 0;
-            AUTO :   w_input_data = current_temperature * 100 + pressure;
+            AUTO :   w_input_data = current_temperature * 100 + humidity;
             MANUAL : w_input_data = current_temperature * 100 + target_temperature;
             endcase        
         end
