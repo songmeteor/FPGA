@@ -280,9 +280,9 @@ module fnd_heat_cool(
         case (heat_cool) 
         HEAT : begin
             select_hc_display[0] = 8'b10000111; // T
-            select_hc_display[1] = 8'b10000111; // E
-            select_hc_display[2] = 8'b10000111; // A
-            select_hc_display[3] = 8'b10000111; // H                                    
+            select_hc_display[1] = 8'b10001000; // A
+            select_hc_display[2] = 8'b10000110; // E
+            select_hc_display[3] = 8'b10001001; // H                                    
         end
         COOL : begin
             select_hc_display[0] = 8'b11000111; // L

@@ -33,6 +33,7 @@ module dht11_controller(
     reg [5:0]  bit_count;
     reg        dht_data_out;
     reg        dht_data_en;  
+    reg [8:0]  sum_data;
 
     assign dht11_data = dht_data_en ? dht_data_out : 1'bz;
 
@@ -40,6 +41,10 @@ module dht11_controller(
         state          <= IDLE;
         second_counter <= 0;
     end  
+
+    always @(*) begin 
+        sum_data = data_buffer[39:32] + data_buffer[31:24] + data_buffer[23:16] + data_buffer[15:8];
+    end
 
     always @(posedge clk, posedge reset) begin
         if(reset) begin
@@ -129,7 +134,7 @@ module dht11_controller(
                     end
                 end
                 DATA_END : begin
-                    if ((data_buffer[39:32] + data_buffer[31:24] + data_buffer[23:16] + data_buffer[15:8]) == data_buffer[7:0]) begin
+                    if (sum_data[7:0] == data_buffer[7:0]) begin
                         humidity            <= data_buffer[39:32];
                         current_temperature <= data_buffer[23:16];
                     end

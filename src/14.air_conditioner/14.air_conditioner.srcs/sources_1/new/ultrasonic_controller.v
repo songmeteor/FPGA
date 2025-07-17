@@ -13,6 +13,8 @@ module ultrasonic_controller (
     localparam WAITING_ECHO = 2'b10;
     localparam MEASURING    = 2'b11;
 
+    localparam ECHO_TIMEOUT = 3_000_000; // 30ms 타임아웃을 위한 카운트 값
+
     reg [1:0] state = IDLE;
 
     reg [26:0] timer;     
@@ -57,6 +59,10 @@ module ultrasonic_controller (
                     if (echo) begin
                         state <= MEASURING; 
                         echo_width_counter <= 0;
+                    end else if (timer >= ECHO_TIMEOUT) begin 
+                        state <= IDLE; 
+                    end else begin 
+                        timer <= timer + 1; 
                     end
                 end
 

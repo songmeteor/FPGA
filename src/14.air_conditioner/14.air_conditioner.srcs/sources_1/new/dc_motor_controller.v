@@ -63,24 +63,28 @@ module dc_motor_controller(
         end
     end 
 
-    always @(*) begin
-        if(distance <= 5) begin
-            dc_motor = 0;
-            in1_in2 = 2'b11;            
-        end else if(mode == AUTO) begin
-            dc_motor = r_counter_PWM < r_DUTY_CYCLE ? 1:0;
-            in1_in2 = 2'b10;
-        end else if(mode == MANUAL) begin
-            if(heat_cool) begin  // cool
-                dc_motor = r_counter_PWM < DUTY_MANUAL ? 1:0;
-                in1_in2 = 2'b10;                
-            end else begin       // heat
-                dc_motor = r_counter_PWM < DUTY_MANUAL ? 1:0;
-                in1_in2 = 2'b01;
-            end
+    always @(posedge clk, posedge reset) begin
+        if(reset) begin
+            dc_motor <= 0;
+            in1_in2  <= 2'b11; 
         end else begin
-            dc_motor = 0;
-            in1_in2 = 2'b11;
+            if(distance <= 5) begin
+                dc_motor <= 0;
+                in1_in2  <= 2'b11; 
+            end else if(mode == AUTO) begin
+                dc_motor <= r_counter_PWM < r_DUTY_CYCLE;
+                in1_in2  <= 2'b10; 
+            end else if(mode == MANUAL) begin
+                dc_motor <= r_counter_PWM < DUTY_MANUAL;
+                if(heat_cool) begin  // cool
+                    in1_in2 <= 2'b10; 
+                end else begin       // heat
+                    in1_in2 <= 2'b01; 
+                end
+            end else begin 
+                dc_motor <= 0;
+                in1_in2  <= 2'b11;
+            end
         end
     end
 endmodule
