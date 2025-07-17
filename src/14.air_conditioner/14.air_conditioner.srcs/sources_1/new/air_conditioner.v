@@ -104,5 +104,16 @@ module air_conditioner(
 
         .dc_motor(dc_motor),
         .in1_in2 (in1_in2)     
-    );           
+    );
+
+    uart_controller u_uart_controller(
+        .clk                (clk),
+        .reset              (reset),
+        .ultrasonic_mode    (w_ultrasonic_mode),
+        .humidity           (w_humidity),
+        .current_temperature(w_current_temperature),
+        .distance           (w_distance),
+        
+        .tx(RsTx)
+    );
 endmodule
