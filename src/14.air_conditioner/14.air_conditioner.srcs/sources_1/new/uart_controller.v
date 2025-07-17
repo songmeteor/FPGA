@@ -97,26 +97,23 @@ module data_sender(
         end
     endfunction
 
-    // --- 상태 머신 로직 ---
     always @(posedge clk, posedge reset) begin
         if (reset) begin
             state <= IDLE;
             tx_start <= 0;
             tx_idx <= 0;
         end else begin
-            tx_start <= 0; // 기본적으로 0으로 유지
+            tx_start <= 0; 
 
             case (state)
                 IDLE: begin
-                    // 1초마다 트리거가 들어오고, 이전 전송이 끝났으면 데이터 준비 시작
                     if (start_trigger && !tx_busy) begin
                         state <= PREPARE;
                     end
                 end
 
-                PREPARE: begin // 전송할 데이터를 버퍼에 채우는 상태
-                    if (ultrasonic_mode == 0) begin // 습도/온도 모드
-                        // "H:XX, T:YY\n\r"
+                PREPARE: begin 
+                    if (ultrasonic_mode == 0) begin 
                         tx_buffer[0]  <= ASCII_H;
                         tx_buffer[1]  <= ASCII_COLON;
                         tx_buffer[2]  <= to_ascii(humidity / 10);
@@ -130,7 +127,7 @@ module data_sender(
                         tx_buffer[10] <= ASCII_NL;
                         tx_buffer[11] <= ASCII_CR;
                         tx_len        <= 12;
-                    end else begin // 거리 측정 모드
+                    end else begin 
                         // "D:XXX\n\r"
                         tx_buffer[0] <= ASCII_D;
                         tx_buffer[1] <= ASCII_COLON;
@@ -141,19 +138,18 @@ module data_sender(
                         tx_buffer[6] <= ASCII_CR;
                         tx_len       <= 7;
                     end
-                    tx_idx <= 0; // 인덱스 초기화
-                    state <= SENDING; // 전송 상태로 전환
+                    tx_idx <= 0; 
+                    state <= SENDING; 
                 end
 
                 SENDING: begin
-                    // 첫 번째 문자를 보내거나, 이전 문자 전송이 완료되면 다음 문자 전송
                     if (tx_idx == 0 || tx_done) begin
                         if (tx_idx < tx_len) begin
                             tx_data <= tx_buffer[tx_idx];
-                            tx_start <= 1; // 1-cycle 펄스
+                            tx_start <= 1; 
                             tx_idx <= tx_idx + 1;
                         end else begin
-                            state <= IDLE; // 모든 문자 전송 완료
+                            state <= IDLE; 
                         end
                     end
                 end
