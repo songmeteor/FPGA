@@ -195,7 +195,7 @@ module dht11_controller (
                         t_cnt1us_next = t_cnt1us_reg + 1;
                     end else begin // Low로 바뀌면 비트 판별
                         // High 펄스가 약 40us (26-28us vs 70us의 중간값) 이상이면 '1', 아니면 '0'
-                        data_next = (t_cnt1us_reg >= 40) ? {data_reg[38:0], 1'b1} : {data_reg[38:0], 1'b0};
+                        data_next = (t_cnt1us_reg >= 35) ? {data_reg[38:0], 1'b1} : {data_reg[38:0], 1'b0};
                         bit_cnt_next = bit_cnt_reg + 1;
 
                         if (bit_cnt_reg == 39) begin // 40비트 수신 완료
