@@ -455,6 +455,8 @@ module dht11_controller(
         end else begin
             case(state)
                 IDLE : begin
+                    dht_data_en  <= 1;
+                    dht_data_out <= 1;
                     if (second_counter >= (3*COUNT_1S) - 1) begin
                         state <= START_LOW;
                         timer_count <= 0;
