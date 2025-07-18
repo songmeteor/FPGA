@@ -18,10 +18,10 @@ module ultrasonic_controller (
     reg [1:0] state = IDLE;
 
     reg [26:0] timer;     
-    reg [16:0] echo_width_counter; 
+    reg [21:0] echo_width_counter; 
 
     reg        trig_reg = 0;
-    reg [15:0] distance_reg = 0;
+    reg [9:0] distance_reg = 0;
 
     assign trig = trig_reg;
     assign distance = distance_reg;
@@ -36,7 +36,7 @@ module ultrasonic_controller (
         end else begin
             case (state)
                 IDLE: begin
-                    if (timer < 5_000_000) begin //50ms 대기
+                    if (timer < 5_000_0000) begin //500ms 대기
                         timer <= timer + 1;
                     end else begin
                         timer <= 0;
@@ -72,6 +72,7 @@ module ultrasonic_controller (
                     end else begin
                         distance_reg <= echo_width_counter / 5830;
                         state <= IDLE; // 다시 대기 상태로 복귀
+                        timer <= 0;
                     end
                 end
             endcase

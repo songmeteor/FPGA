@@ -16,7 +16,8 @@ module air_conditioner(
     output [3:0] an,
     output       dc_motor,
     output [1:0] in1_in2,
-    output       buzzer,       
+    output       buzzer,
+    output [15:0] led,       
 
     inout dht11_data
     );

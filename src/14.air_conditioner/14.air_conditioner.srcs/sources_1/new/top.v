@@ -45,6 +45,7 @@ module top(
     wire       w_air_conditioner_dc_motor;
     wire [1:0] w_air_conditioner_in1_in2;
     wire       w_air_conditioner_buzzer;
+    wire [15:0] w_air_conditioner_led;
 
     reg [1:0] current_state = minsec_stop; 
     reg [1:0] next_state;
@@ -143,7 +144,7 @@ module top(
                 dc_motor = w_air_conditioner_dc_motor;
                 in1_in2 = w_air_conditioner_in1_in2;
                 buzzer = w_air_conditioner_buzzer;
-                led[15:13] = 3'b001;         
+                led[15:13] = 3'b001;        
             end                        
         endcase
     end     
