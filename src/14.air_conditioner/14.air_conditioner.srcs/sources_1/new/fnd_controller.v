@@ -246,7 +246,7 @@ module fnd_level(
     always @(*) begin
         case (level) 
         LEVEL0 : select_level_display = 8'b11000000;
-        LEVEL1 : select_level_display = 8'b11100011;
+        LEVEL1 : select_level_display = 8'b11111001;
         LEVEL2 : select_level_display = 8'b10100100;
         LEVEL3 : select_level_display = 8'b10110000;
         default : select_level_display = 8'b11111111;

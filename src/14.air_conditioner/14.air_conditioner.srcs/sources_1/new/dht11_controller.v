@@ -73,7 +73,7 @@ module dht11_controller(
                 end
                 START_HIGH : begin   //30us 동안 HIGH 출력
                     dht_data_out <= 1;  
-                    if (timer_count < 30 * COUNT_1US) begin
+                    if (timer_count < 40 * COUNT_1US) begin
                         timer_count <= timer_count + 1;
                     end else begin
                         state <= RESP_LOW;
@@ -97,7 +97,7 @@ module dht11_controller(
                         state <= WAIT_BIT_LOW_START;
                         bit_count <= 0;
                         timer_count <= 0;
-                    end else if (timer_count > (200 * COUNT_1US)) begin // 200us 타임아웃
+                    end else if (timer_count > (300 * COUNT_1US)) begin // 300us 타임아웃
                         state <= ERROR;
                         timer_count <= 0;
                     end else begin
@@ -108,7 +108,7 @@ module dht11_controller(
                     if (dht11_data == 1'b0) begin
                         state       <= DATA_WAIT_LOW_END;
                         timer_count <= 0;
-                    end else if (timer_count > (100 * COUNT_1US)) begin // 100us 타임아웃
+                    end else if (timer_count > (200 * COUNT_1US)) begin // 200us 타임아웃
                         state <= ERROR;
                         timer_count <= 0;
                     end else begin
@@ -119,7 +119,7 @@ module dht11_controller(
                     if (dht11_data == 1'b1) begin
                         state <= DATA_MEASURE_HIGH;
                         timer_count <= 0; 
-                    end else if (timer_count > (100 * COUNT_1US)) begin // 100us 타임아웃
+                    end else if (timer_count > (200 * COUNT_1US)) begin // 200us 타임아웃
                         state <= ERROR;
                     end else begin
                         timer_count <= timer_count + 1;

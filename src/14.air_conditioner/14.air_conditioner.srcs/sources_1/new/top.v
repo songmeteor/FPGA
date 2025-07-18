@@ -12,18 +12,22 @@ module top(
     input RsRx,
     input echo,
 
-    output trig,
-    output RsTx,
-    output reg buzzer,
-    output reg [7:0] seg,
-    output reg [3:0] an,
+    output            trig,
+    output            RsTx,
+    output reg        buzzer,
+    output reg [7:0]  seg,
+    output reg [3:0]  an,
     output reg [15:0] led,
-    output reg [1:0] in1_in2,
-    output      servo,
-    output reg  dc_motor,
+    output reg [1:0]  in1_in2,
+    output            servo,
+    output reg        dc_motor,
 
     inout dht11_data
      );
+
+    parameter minsec_stop = 2'b00,
+              microwave   = 2'b01,
+              air_conditioner = 2'b10;
 
     wire w_btnR;
 
@@ -32,44 +36,40 @@ module top(
 
     wire [7:0] w_microwave_stop_seg;
     wire [3:0] w_microwave_stop_an;
-    wire w_microwave_buzzer;
+    wire       w_microwave_buzzer;
     wire [1:0] w_microwave_in1_in2;
-    wire w_microwave_dc_motor;
+    wire       w_microwave_dc_motor;
 
     wire [7:0] w_air_conditioner_seg;
     wire [3:0] w_air_conditioner_an;
-    wire w_air_conditioner_dc_motor;
+    wire       w_air_conditioner_dc_motor;
     wire [1:0] w_air_conditioner_in1_in2;
-    wire w_air_conditionere_buzzer;
-
-    parameter minsec_stop = 2'b00,
-              microwave   = 2'b01,
-              air_conditioner = 2'b10;
+    wire       w_air_conditioner_buzzer;
 
     reg [1:0] current_state = minsec_stop; 
     reg [1:0] next_state;
 
+
     debounce_pushbutton u_btnR(.clk(clk), .noise_btn(btnR), .clean_btn(w_btnR));          
 
-
     minsec_stop_top u_minsec_stop_top(
-        .clk(clk),
+        .clk  (clk),
         .reset(reset),         
-        .btnU(btnU),   
-        .btnC(btnC),   
-        .btnD(btnD),   
-        .seg(w_minsec_stop_seg),
-        .an(w_minsec_stop_an)
+        .btnU (btnU),   
+        .btnC (btnC),   
+        .btnD (btnD),   
+        .seg  (w_minsec_stop_seg),
+        .an   (w_minsec_stop_an)
     );
 
     microwave_top u_microwave_top(
-        .clk(clk),
+        .clk  (clk),
         .reset(reset),
-        .btnU(btnU),
-        .btnL(btnL),
-        .btnC(btnC),
-        .btnD(btnD),
-        .door(door),
+        .btnU (btnU),
+        .btnL (btnL),
+        .btnC (btnC),
+        .btnD (btnD),
+        .door (door),
 
         .seg(w_microwave_stop_seg),
         .an(w_microwave_stop_an),
@@ -95,7 +95,7 @@ module top(
         .an(w_air_conditioner_an),
         .dc_motor(w_air_conditioner_dc_motor),
         .in1_in2(w_air_conditioner_in1_in2),       
-        .buzzer(w_air_conditionere_buzzer),
+        .buzzer(w_air_conditioner_buzzer),
         .dht11_data(dht11_data)
     );
 
@@ -142,7 +142,7 @@ module top(
                 an = w_air_conditioner_an;
                 dc_motor = w_air_conditioner_dc_motor;
                 in1_in2 = w_air_conditioner_in1_in2;
-                buzzer = w_air_conditionere_buzzer;
+                buzzer = w_air_conditioner_buzzer;
                 led[15:13] = 3'b001;         
             end                        
         endcase
