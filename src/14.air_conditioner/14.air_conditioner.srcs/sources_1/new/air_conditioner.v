@@ -15,7 +15,8 @@ module air_conditioner(
     output [7:0] seg,
     output [3:0] an,
     output       dc_motor,
-    output [1:0] in1_in2,       
+    output [1:0] in1_in2,
+    output       buzzer,       
 
     inout dht11_data
     );
@@ -115,5 +116,16 @@ module air_conditioner(
         .distance           (w_distance),
         
         .tx(RsTx)
+    );
+
+    buzzer_controller u_buzzer_controller(
+        .clk(clk),
+        .reset(reset),
+        .pulse_U(w_btnU),
+        .pulse_D(w_btnD),
+        .pulse_L(w_btnL),
+        .pulse_run(w_btnC),
+        .distance(w_distance),
+        .buzzer(buzzer)
     );
 endmodule

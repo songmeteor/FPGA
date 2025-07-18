@@ -246,7 +246,7 @@ module fnd_level(
     always @(*) begin
         case (level) 
         LEVEL0 : select_level_display = 8'b11000000;
-        LEVEL1 : select_level_display = 8'b11111001;
+        LEVEL1 : select_level_display = 8'b00011100;
         LEVEL2 : select_level_display = 8'b10100100;
         LEVEL3 : select_level_display = 8'b10110000;
         default : select_level_display = 8'b11111111;
@@ -256,7 +256,7 @@ module fnd_level(
     always @(*) begin
         case(digit_sel)
             2'b00: begin   seg = select_level_display; an = 4'b1110; end
-            2'b01: begin   seg = 8'b11100100;          an = 4'b1101; end
+            2'b01: begin   seg = 8'b00011100;          an = 4'b1101; end
             2'b10: begin   seg = 8'b10000110;          an = 4'b1011; end
             2'b11: begin   seg = 8'b11000111;          an = 4'b0111; end
             default: begin seg = 8'b11111111;          an = 4'b1111; end           

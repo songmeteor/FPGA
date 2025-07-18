@@ -47,7 +47,7 @@ module btn_controller(
         end
     end
 
-    assign heat_cool = (target_temperature >= current_temperature) ? 1 : 0;
+    assign heat_cool = (target_temperature >= current_temperature) ? 0 : 1;
 
     always @(*) begin
         if(current_temperature >= 24 && current_temperature <= 27 && humidity >= 40 && humidity <= 60)

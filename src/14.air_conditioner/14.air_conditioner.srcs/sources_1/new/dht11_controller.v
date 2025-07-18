@@ -33,7 +33,6 @@ module dht11_controller(
     reg [5:0]  bit_count;
     reg        dht_data_out;
     reg        dht_data_en;  
-    reg [8:0]  sum_data;
 
     assign dht11_data = dht_data_en ? dht_data_out : 1'bz;
 
@@ -41,10 +40,6 @@ module dht11_controller(
         state          <= IDLE;
         second_counter <= 0;
     end  
-
-    always @(*) begin 
-        sum_data = data_buffer[39:32] + data_buffer[31:24] + data_buffer[23:16] + data_buffer[15:8];
-    end
 
     always @(posedge clk, posedge reset) begin
         if(reset) begin
@@ -89,23 +84,45 @@ module dht11_controller(
                 RESP_LOW : begin
                     if (dht11_data == 1'b0) begin
                         state <= RESP_HIGH;
-                    end            
+                        timer_count <= 0;
+                    end else if (timer_count > (200 * COUNT_1US)) begin // 200us 타임아웃
+                        state <= ERROR;
+                        timer_count <= 0;
+                    end else begin
+                        timer_count <= timer_count + 1;
+                    end           
                 end
                 RESP_HIGH : begin
                     if (dht11_data == 1'b1) begin
                         state <= WAIT_BIT_LOW_START;
                         bit_count <= 0;
-                    end         
+                        timer_count <= 0;
+                    end else if (timer_count > (200 * COUNT_1US)) begin // 200us 타임아웃
+                        state <= ERROR;
+                        timer_count <= 0;
+                    end else begin
+                        timer_count <= timer_count + 1;
+                    end        
                 end
                 WAIT_BIT_LOW_START : begin
                     if (dht11_data == 1'b0) begin
                         state       <= DATA_WAIT_LOW_END;
-                    end                
+                        timer_count <= 0;
+                    end else if (timer_count > (100 * COUNT_1US)) begin // 100us 타임아웃
+                        state <= ERROR;
+                        timer_count <= 0;
+                    end else begin
+                        timer_count <= timer_count + 1;
+                    end               
                 end
                 DATA_WAIT_LOW_END : begin
                     if (dht11_data == 1'b1) begin
                         state <= DATA_MEASURE_HIGH;
                         timer_count <= 0; 
+                    end else if (timer_count > (100 * COUNT_1US)) begin // 100us 타임아웃
+                        state <= ERROR;
+                    end else begin
+                        timer_count <= timer_count + 1;
                     end
                 end
 
@@ -134,11 +151,18 @@ module dht11_controller(
                     end
                 end
                 DATA_END : begin
-                    if (sum_data[7:0] == data_buffer[7:0]) begin
+                    if ((data_buffer[39:32] + data_buffer[31:24] + data_buffer[23:16] + data_buffer[15:8]) == data_buffer[7:0]) begin
                         humidity            <= data_buffer[39:32];
                         current_temperature <= data_buffer[23:16];
                     end
-                    state <= IDLE;            
+                    state <= IDLE;   
+                    data_buffer <= 0;
+                    bit_count   <= 0;         
+                end
+                ERROR : begin
+                    state       <= IDLE; // 에러 발생 시 IDLE로 돌아가 다시 시도
+                    data_buffer <= 0;
+                    bit_count   <= 0;                    
                 end
                 default : state <= IDLE;                                                                                     
             endcase
