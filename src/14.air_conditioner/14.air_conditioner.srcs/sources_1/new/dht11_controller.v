@@ -155,12 +155,14 @@ module dht11_controller(
                         humidity            <= data_buffer[39:32];
                         current_temperature <= data_buffer[23:16];
                     end
+                    timer_count   <= 0; 
                     state <= IDLE;   
                     data_buffer <= 0;
                     bit_count   <= 0;         
                 end
                 ERROR : begin
                     state       <= IDLE; // 에러 발생 시 IDLE로 돌아가 다시 시도
+                    timer_count   <= 0; 
                     data_buffer <= 0;
                     bit_count   <= 0;                    
                 end
