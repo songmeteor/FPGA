@@ -548,6 +548,17 @@ module dht11_controller(
                     end 
                 end
 
+                // DATA_MEASURE_HIGH : begin
+                //     dht_data_en <= 0;
+                //     if (dht11_data == 1'b0) begin
+                //         state <= DATA_PROCESS;
+                //     end else begin
+                //         // 이 코드는 HIGH->LOW로 바뀌는 마지막 순간에 실행되지 않아
+                //         // 타이머 값이 1만큼 부족하게 측정됩니다.
+                //         timer_count <= timer_count + 1;
+                //     end
+                // end
+
                 DATA_PROCESS : begin
                     dht_data_en   <= 0;
                     data_buffer <= {data_buffer[38:0], (timer_count > (45 * COUNT_1US))};

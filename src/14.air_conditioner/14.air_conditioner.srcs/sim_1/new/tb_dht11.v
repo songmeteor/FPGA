@@ -50,12 +50,18 @@ module tb_dht11;
         @(negedge dht11_data);
         $display("[%0t ns] DUT has initiated the start signal (line is LOW).", $time);
 
-        // 2. Wait for the DUT to release the line
+        // 2. Wait for the DUT to pull the line high (start of 30us pulse)
         @(posedge dht11_data);
-        $display("[%0t ns] DUT has released the data line (line is HIGH).", $time);
+        $display("[%0t ns] DUT started its 30us HIGH pulse. Waiting for it to finish.", $time);
+
+        // --- ✨ 핵심 수정: 버스 충돌을 피하기 위해 대기 ---
+        // DUT가 30us 동안 버스를 사용하므로, 끝날 때까지 기다려줍니다. (여유있게 31us)
+        #31000; 
+        // 이제 DUT는 입력 모드로 전환했고, 버스는 테스트벤치가 사용 가능합니다.
+        // --- END OF FIX ---
 
         // 3. Sensor (Testbench) response signal: 80us LOW followed by 80us HIGH
-        dht_en_tb <= 1;   // Testbench takes control of the line
+        dht_en_tb <= 1;   // 테스트벤치가 버스 제어를 시작
         dht_out_tb <= 0;
         #80000;         // 80us LOW
         dht_out_tb <= 1;
@@ -64,16 +70,14 @@ module tb_dht11;
 
         // 4. Send the 40 bits of data
         for (i = 39; i >= 0; i = i - 1) begin
-            // Each bit starts with a 50us LOW pulse
             dht_out_tb <= 0;
             #50000;
             
-            // High pulse duration determines the bit value
             dht_out_tb <= 1;
             if (data_to_send[i] == 1'b1) begin
-                #70000; // ~70us HIGH for a '1' bit
+                #70000;
             end else begin
-                #28000; // ~28us HIGH for a '0' bit
+                #28000;
             end
         end
         $display("[%0t ns] Testbench has finished sending 40 bits of data.", $time);
