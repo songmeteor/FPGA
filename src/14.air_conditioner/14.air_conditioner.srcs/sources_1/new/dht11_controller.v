@@ -417,9 +417,10 @@ module dht11_controller(
     inout dht11_data
     );
 
-    localparam COUNT_1US = 100;
-    localparam COUNT_1MS = 100_000;
-    localparam COUNT_1S  = 100_000_000;
+    parameter COUNT_1US = 100;
+    parameter COUNT_1MS = 100_000;
+    parameter COUNT_1S  = 100_000_000;
+    parameter WAIT_SECOND = 3;
 
     localparam IDLE               = 4'b0000,
                START_LOW          = 4'b0001,
@@ -451,13 +452,15 @@ module dht11_controller(
             data_buffer       <= 0;
             bit_count         <= 0;
             dht_data_en       <= 1;
-            dht_data_out      <= 1;            
+            dht_data_out      <= 1;
+            humidity             <= 0;    
+            current_temperature  <= 0;             
         end else begin
             case(state)
                 IDLE : begin
                     dht_data_en  <= 1;
                     dht_data_out <= 1;
-                    if (second_counter >= (3*COUNT_1S) - 1) begin
+                    if (second_counter >= (WAIT_SECOND * COUNT_1S) - 1) begin
                         state <= START_LOW;
                         timer_count <= 0;
                         second_counter <= 0;
@@ -539,11 +542,10 @@ module dht11_controller(
 
                 DATA_MEASURE_HIGH : begin
                     dht_data_en   <= 0;
+                    timer_count <= timer_count + 1;
                     if (dht11_data == 1'b0) begin
                         state <= DATA_PROCESS;
-                    end else begin
-                        timer_count <= timer_count + 1;
-                    end
+                    end 
                 end
 
                 DATA_PROCESS : begin

@@ -155,7 +155,7 @@ module top_fsm(
     input reset,
     input btnR,
 
-    output state
+    output [1:0] state
 );
 
     parameter minsec_stop = 2'b00,
@@ -165,6 +165,7 @@ module top_fsm(
     reg [1:0] current_state = minsec_stop; 
     reg [1:0] next_state;
    
+    assign state = current_state;
 
     always @ (posedge clk, posedge reset) 
     begin
