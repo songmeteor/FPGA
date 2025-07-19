@@ -7,7 +7,8 @@ module minsec_stop_top(
     input btnC,   //btn[1]
     input btnD,   //btn[2]
     output [7:0] seg,
-    output [3:0] an
+    output [3:0] an,
+    output       buzzer
     );
 
     wire w_btnU, w_btnC, w_btnD;
@@ -87,5 +88,15 @@ module minsec_stop_top(
         .anim_mode(w_anim_mode), 
         .seg_data(seg),
         .an(an)    
-    );    
+    );
+
+    minsec_stop_buzzer_controller u_minsec_stop_buzzer_controller(
+        .clk(clk),
+        .reset(reset),
+        .btnU(w_btnU),
+        .btnC(w_btnC),
+        .btnD(w_btnD),
+
+        .buzzer(buzzer)
+    );        
 endmodule

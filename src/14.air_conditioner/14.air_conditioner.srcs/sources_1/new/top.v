@@ -33,6 +33,7 @@ module top(
 
     wire [7:0] w_minsec_stop_seg;
     wire [3:0] w_minsec_stop_an;
+    wire       w_minsec_stop_buzzer;
 
     wire [7:0] w_microwave_stop_seg;
     wire [3:0] w_microwave_stop_an;
@@ -60,7 +61,8 @@ module top(
         .btnC (btnC),   
         .btnD (btnD),   
         .seg  (w_minsec_stop_seg),
-        .an   (w_minsec_stop_an)
+        .an   (w_minsec_stop_an),
+        .buzzer (w_minsec_stop_buzzer)
     );
 
     microwave_top u_microwave_top(
@@ -128,6 +130,7 @@ module top(
             minsec_stop : begin
                 seg = w_minsec_stop_seg;
                 an = w_minsec_stop_an;
+                buzzer = w_minsec_stop_buzzer;
                 led[15:13] = 3'b100;
             end
             microwave : begin

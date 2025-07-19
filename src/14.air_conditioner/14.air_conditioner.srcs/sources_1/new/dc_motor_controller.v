@@ -5,7 +5,7 @@ module dc_motor_controller(
     input       reset,
     input [9:0] distance,
     input [1:0] mode,
-    input       heat_cool,
+    input [1:0] heat_cool_stop,
     input [1:0] level,
 
     output reg       dc_motor,
@@ -76,10 +76,12 @@ module dc_motor_controller(
                 in1_in2  <= 2'b10; 
             end else if(mode == MANUAL) begin
                 dc_motor <= r_counter_PWM < DUTY_MANUAL;
-                if(heat_cool) begin  // cool
+                if(heat_cool_stop == 0) begin  // heat
                     in1_in2 <= 2'b10; 
-                end else begin       // heat
+                end else if(heat_cool_stop == 1) begin  // cool
                     in1_in2 <= 2'b01; 
+                end else begin       //stop
+                    in1_in2 <= 2'b11;
                 end
             end else begin 
                 dc_motor <= 0;

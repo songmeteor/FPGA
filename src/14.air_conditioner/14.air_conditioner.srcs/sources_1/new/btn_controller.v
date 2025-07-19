@@ -11,7 +11,7 @@ module btn_controller(
     input [7:0] humidity, 
 
     output reg [7:0] target_temperature,
-    output           heat_cool,
+    output     [1:0] heat_cool_stop,
     output reg [1:0] level,
     output reg       ultrasonic_mode
     );
@@ -47,7 +47,7 @@ module btn_controller(
         end
     end
 
-    assign heat_cool = (target_temperature >= current_temperature) ? 0 : 1;
+    assign heat_cool_stop = (target_temperature > current_temperature) ? 0 : ((target_temperature < current_temperature) ? 1 : 2);
 
     always @(*) begin
         if(current_temperature >= 24 && current_temperature <= 27 && humidity >= 40 && humidity <= 60)

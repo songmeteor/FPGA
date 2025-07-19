@@ -9,7 +9,7 @@ module fnd_controller(
     input [7:0] current_temperature,  // 무조건 두자리 양수
     input [7:0] humidity,             // 무조건 두자리 양수
     input [1:0] level,
-    input       heat_cool,            // heat = 0, cool = 1
+    input [1:0] heat_cool_stop,      // heat = 0, cool = 1 , stop = 2
     input       ultrasonic_mode,
 
     output reg [7:0] seg_data,
@@ -76,10 +76,10 @@ module fnd_controller(
     );
 
     fnd_heat_cool u_fnd_heat_cool(
-        .digit_sel(w_sel),
-        .heat_cool(heat_cool),
-        .seg      (w_seg_hc),
-        .an       (w_an_hc)
+        .digit_sel     (w_sel),
+        .heat_cool_stop(heat_cool_stop),
+        .seg           (w_seg_hc),
+        .an            (w_an_hc)
     );
 
     fnd_auto u_fnd_auto(
@@ -267,17 +267,19 @@ endmodule
 
 module fnd_heat_cool(
     input [1:0] digit_sel,
-    input       heat_cool,
+    input [1:0] heat_cool_stop,
+
     output reg [7:0] seg,
     output reg [3:0] an
 );
-    parameter HEAT = 1'b0,
-              COOL = 1'b1;  
+    parameter HEAT = 2'b00,
+              COOL = 2'b01,
+              STOP = 2'b10;  
 
     reg [7:0] select_hc_display [3:0]; 
 
     always @(*) begin
-        case (heat_cool) 
+        case (heat_cool_stop) 
         HEAT : begin
             select_hc_display[0] = 8'b10000111; // T
             select_hc_display[1] = 8'b10001000; // A
@@ -289,6 +291,12 @@ module fnd_heat_cool(
             select_hc_display[1] = 8'b11000000; // O
             select_hc_display[2] = 8'b11000000; // O
             select_hc_display[3] = 8'b11000110; // C   
+        end
+        STOP : begin
+            select_hc_display[0] = 8'b10001100; // P
+            select_hc_display[1] = 8'b11000000; // O
+            select_hc_display[2] = 8'b10000111; // T
+            select_hc_display[3] = 8'b10010010; // S                 
         end        
         endcase
     end

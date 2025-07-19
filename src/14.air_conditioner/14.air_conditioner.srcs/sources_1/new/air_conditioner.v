@@ -16,8 +16,7 @@ module air_conditioner(
     output [3:0] an,
     output       dc_motor,
     output [1:0] in1_in2,
-    output       buzzer,
-    output [15:0] led,       
+    output       buzzer,    
 
     inout dht11_data
     );
@@ -28,7 +27,7 @@ module air_conditioner(
     wire [7:0] w_humidity;
     wire [7:0] w_current_temperature;
     wire [7:0] w_target_temperature;
-    wire       w_heat_cool;
+    wire [1:0] w_heat_cool_stop;
     wire [1:0] w_level;
     wire       w_ultrasonic_mode;
 
@@ -75,7 +74,7 @@ module air_conditioner(
         .humidity           (w_humidity), 
 
         .target_temperature(w_target_temperature),
-        .heat_cool         (w_heat_cool),
+        .heat_cool_stop    (w_heat_cool_stop),
         .level             (w_level),
         .ultrasonic_mode   (w_ultrasonic_mode)
     );
@@ -89,7 +88,7 @@ module air_conditioner(
         .current_temperature(w_current_temperature), 
         .humidity           (w_humidity),            
         .level              (w_level),
-        .heat_cool          (w_heat_cool),           
+        .heat_cool_stop     (w_heat_cool_stop),           
         .ultrasonic_mode    (w_ultrasonic_mode),
 
         .seg_data(seg),
@@ -97,12 +96,12 @@ module air_conditioner(
     ); 
 
     dc_motor_controller u_dc_motor_controller(
-        .clk      (clk),
-        .reset    (reset),
-        .distance (w_distance),
-        .mode     (w_mode),
-        .heat_cool(w_heat_cool),
-        .level    (w_level),
+        .clk           (clk),
+        .reset         (reset),
+        .distance      (w_distance),
+        .mode          (w_mode),
+        .heat_cool_stop(w_heat_cool_stop),
+        .level         (w_level),
 
         .dc_motor(dc_motor),
         .in1_in2 (in1_in2)     
