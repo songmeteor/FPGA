@@ -36,7 +36,7 @@ module microwave_btn_controller(
             run_time <= 0;
         end else begin
             if(btnU && (run_time < 14'd5930) && (mode == SET)) run_time <= run_time + 14'd30;
-            else if(btnD && (run_time > 0) && (mode == SET))   run_time <= run_time - 14'd30;
+            else if(btnD && (run_time > 30) && (mode == SET))   run_time <= run_time - 14'd30;
             else if((run_time > 0) && tick_1s && (mode == RUN))run_time <= run_time - 1;
             else                                               run_time <= run_time;
         end
