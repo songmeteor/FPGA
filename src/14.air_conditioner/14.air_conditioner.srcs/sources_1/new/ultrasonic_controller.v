@@ -36,7 +36,7 @@ module ultrasonic_controller (
         end else begin
             case (state)
                 IDLE: begin
-                    if (timer < 5_000_0000) begin //500ms 대기
+                    if (timer < 5_000_0000) begin //500ms 대기(5_000_0000)
                         timer <= timer + 1;
                     end else begin
                         timer <= 0;

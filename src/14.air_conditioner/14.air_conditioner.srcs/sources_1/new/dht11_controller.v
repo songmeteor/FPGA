@@ -545,7 +545,9 @@ module dht11_controller(
                     timer_count <= timer_count + 1;
                     if (dht11_data == 1'b0) begin
                         state <= DATA_PROCESS;
-                    end 
+                    end else begin
+                        state <= DATA_MEASURE_HIGH; 
+                    end
                 end
 
                 // DATA_MEASURE_HIGH : begin
