@@ -71,6 +71,7 @@ module top(
         .btnC (btnC),
         .btnD (btnD),
         .door (door),
+        .top_mode(state),
 
         .seg(w_microwave_stop_seg),
         .an(w_microwave_stop_an),

@@ -7,6 +7,7 @@ module microwave_fsm(
     input        btnL,
     input        btnC,
     input        btnD,
+    input [1:0]  top_mode,
     input        door,   // close : 0 , open : 1
     input [13:0] run_time,
     output reg [2:0] mode
@@ -44,7 +45,7 @@ module microwave_fsm(
     always @(*) begin
         case (current_state)
             IDLE : begin
-                if(btnC) next_state = SET;
+                if(btnC && (top_mode == 2'b01)) next_state = SET;
                 else     next_state = IDLE;
             end
             SET : begin

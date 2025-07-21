@@ -573,7 +573,7 @@ module dht11_controller(
                 end
                 //(data_buffer[39:32] + data_buffer[31:24] + data_buffer[23:16] + data_buffer[15:8]) == data_buffer[7:0]
                 DATA_END : begin
-                    if (1) begin
+                    if ((data_buffer[39:32] + data_buffer[31:24] + data_buffer[23:16] + data_buffer[15:8]) == data_buffer[7:0]) begin
                         humidity            <= data_buffer[39:32];
                         current_temperature <= data_buffer[23:16];
                     end

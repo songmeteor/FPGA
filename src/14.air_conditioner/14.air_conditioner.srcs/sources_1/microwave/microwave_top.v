@@ -8,6 +8,7 @@ module microwave_top(
     input        btnC,
     input        btnD,
     input        door,
+    input  [1:0] top_mode,
     output [7:0] seg,
     output [3:0] an,
     output       buzzer,
@@ -32,6 +33,7 @@ module microwave_top(
         .btnL    (w_btnL),
         .btnC    (w_btnC),
         .btnD    (w_btnD),
+        .top_mode(top_mode),
         .door    (door),   
         .run_time(w_run_time),
         .mode    (w_mode)
