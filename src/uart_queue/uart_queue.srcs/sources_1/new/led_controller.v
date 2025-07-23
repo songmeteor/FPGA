@@ -62,7 +62,7 @@ module led_controller(
                 end else begin
                     // 아직 명령어가 끝나지 않았으면 다음 데이터를 요청
                     buff_index <= buff_index + 1;
-                    state <= POP;
+                    state <= IDLE;
                 end
             end            
             CHECK : begin
